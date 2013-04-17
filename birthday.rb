@@ -7,6 +7,7 @@ require "./non_wish_list"
 class Birthday
 
   BASE_URL = 'https://m.facebook.com'
+  BIRTHDAY_MESSAGE = 'happy birthday!'
 
   def run!
     agent.get(BASE_URL) if agent.page.nil?
@@ -15,20 +16,20 @@ class Birthday
   end
 
   def wish_happy_birthday
+    go_to_birthday_page
     find_todays_bdays.each do |name|
       puts "Wishing Happy Birthday to....#{name}"
+
       download_image(name)
-
-      agent.get "#{BASE_URL}/birthdays"
-      agent.click("#{name}")
-
+      select_friend(name)
       add_image(name)
-      back_to_birthday_page
+      cleanup_images
     end
   end
 
   def find_todays_bdays
-    agent.get "#{BASE_URL}/birthdays"
+    # abort("...No birthdays today") unless page.at('h4').children.text == "Today"
+
     next_element = page.at('h4').next
     bday_array = todays_bdays(next_element)
 
@@ -45,27 +46,19 @@ class Birthday
     bday_names
   end
 
-  def random_pause
-    sleep rand(8) + 1
-  end
-
-  def non_wish_list
-    NonWishList.list
-  end
-
-  def back_to_birthday_page
-    random_pause
+  def go_to_birthday_page
     agent.get "#{BASE_URL}/birthdays"
-    random_pause
   end
 
-  def fill_in(message)
-    form.textareas.first.value = "#{message}"
+  def select_friend(name)
+    go_to_birthday_page
+    agent.click("#{name}")
   end
 
   def download_image(name)
     agent.get "http://images.google.com"
     first_name = name.split.first
+
     form.fields[4].value = "Happy Birthday #{first_name}"
     form.submit
 
@@ -79,10 +72,8 @@ class Birthday
     agent.click page.link_with(text: "Photo")
 
     form.file_uploads.first.file_name = "#{first_name}.jpg"
-    fill_in("happy birthday!")
-
-    random_pause
-    form.submit
+    form.textareas.first.value = "#{BIRTHDAY_MESSAGE}"
+    # form.submit
   end
 
   def sign_in
@@ -118,6 +109,18 @@ class Birthday
 
   def read_config
     Psych.load(File.read('config.yml'))
+  end
+
+  def random_pause
+    sleep rand(8) + 1
+  end
+
+  def non_wish_list
+    NonWishList.list
+  end
+
+  def cleanup_images
+    `rm *.jpg`
   end
 end
 
