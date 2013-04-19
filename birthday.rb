@@ -116,7 +116,7 @@ class Birthday
   end
 
   def non_wish_list
-    NonWishList.list
+    YAML.load_file('non_wish_list.yml')
   end
 
   def cleanup_images
