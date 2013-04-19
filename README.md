@@ -7,7 +7,7 @@ Yeah - I'm too lazy to remember to visit fbook daily…AND I think wishing old a
 ####Setup
 
   	git clone https://github.com/adennis4/fb-bday.git
-	mv non_wish_list.example.rb non_wish_list.rb
+	mv non_wish_list.example.yml non_wish_list.yml
 	mv config.example.yml config.yml
 	
 ######config.yml
@@ -15,15 +15,11 @@ Yeah - I'm too lazy to remember to visit fbook daily…AND I think wishing old a
 	email: your_email@example.com
 	password: YourPassword
 	
-######non_wish_list.rb
+######non_wish_list.yml
 
-	def self.list
-		[
-		 "Guy I no longer talk to",
-		 "Ex-girlfriend",
-		 "Mom - I should call her"
-		]
-	end
+	- Lionel Messi
+	- Xavi
+	- Andres Iniesta
 	
 ####Run
 
