@@ -28,7 +28,7 @@ class Birthday
   end
 
   def find_todays_bdays
-    # abort("...No birthdays today") unless page.at('h4').children.text == "Today"
+    abort("...No birthdays today") unless page.at('h4').children.text == "Today"
 
     next_element = page.at('h4').next
     bday_array = todays_bdays(next_element)
