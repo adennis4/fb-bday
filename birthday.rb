@@ -62,7 +62,7 @@ class Birthday
     form.fields[4].value = "Happy Birthday #{first_name}"
     form.submit
 
-    image_link = page.search("img").first.attributes["src"].value
+    image_link = page.search("img")[2].attributes["src"].value
     agent.get(image_link).save_as "#{first_name}.jpg"
   end
 
