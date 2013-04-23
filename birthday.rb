@@ -9,7 +9,8 @@ class Birthday
   BIRTHDAY_MESSAGE = 'happy birthday!'
 
   def run!
-    agent.get(BASE_URL) if agent.page.nil?
+    random_nap
+    agent.get(BASE_URL)
     sign_in
     wish_happy_birthday
   end
@@ -72,7 +73,7 @@ class Birthday
 
     form.file_uploads.first.file_name = "#{first_name}.jpg"
     form.textareas.first.value = "#{BIRTHDAY_MESSAGE}"
-    # form.submit
+    form.submit
   end
 
   def sign_in
@@ -110,8 +111,8 @@ class Birthday
     Psych.load(File.read('./config/config.yml'))
   end
 
-  def random_pause
-    sleep rand(8) + 1
+  def random_nap
+    sleep rand(300) + 300
   end
 
   def non_wish_list
@@ -122,7 +123,3 @@ class Birthday
     `rm *.jpg`
   end
 end
-
-birthday = Birthday.new
-birthday.run!
-
