@@ -2,7 +2,6 @@ require "rubygems"
 require "bundler/setup"
 require "nokogiri"
 require "mechanize"
-require "./non_wish_list"
 
 class Birthday
 
@@ -108,7 +107,7 @@ class Birthday
   end
 
   def read_config
-    Psych.load(File.read('config.yml'))
+    Psych.load(File.read('./config/config.yml'))
   end
 
   def random_pause
@@ -116,7 +115,7 @@ class Birthday
   end
 
   def non_wish_list
-    YAML.load_file('non_wish_list.yml')
+    YAML.load_file('./config/non_wish_list.yml')
   end
 
   def cleanup_images
