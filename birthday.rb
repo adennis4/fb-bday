@@ -9,7 +9,7 @@ class Birthday
   BIRTHDAY_MESSAGE = 'happy birthday!'
 
   def run!
-    random_nap
+    # random_nap
     agent.get(BASE_URL)
     sign_in
     wish_happy_birthday
@@ -69,10 +69,12 @@ class Birthday
   def add_image(name)
     first_name = name.split.first
 
-    agent.click page.link_with(text: "Photo")
+    agent.click page.link_with(text: "More Options >>")
+    agent.click page.link_with(text: "Upload Photo")
 
     form.file_uploads.first.file_name = "#{first_name}.jpg"
     form.textareas.first.value = "#{BIRTHDAY_MESSAGE}"
+
     form.submit
   end
 
