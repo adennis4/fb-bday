@@ -24,6 +24,7 @@ class Birthday
       select_friend(name)
       add_image(name)
       cleanup_images
+      File.open('cron.log', 'a') { |x| x.puts "#{name}" }
     end
   end
 
