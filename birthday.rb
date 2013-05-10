@@ -63,8 +63,13 @@ class Birthday
     form.fields[4].value = "Happy Birthday #{first_name}"
     form.submit
 
-    image_link = page.search("img")[2].attributes["src"].value
-    agent.get(image_link).save_as "#{first_name}.jpg"
+    image = select_image
+    agent.get(image).save_as "#{first_name}.jpg"
+  end
+
+  def select_image
+    links = page.links.select{ |link| link.href[1..6] == "imgres" }
+    links[2].href.match(/=(.*)&img/)[1]
   end
 
   def add_image(name)
