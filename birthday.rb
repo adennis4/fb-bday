@@ -76,7 +76,7 @@ class Birthday
     first_name = name.split.first
 
     agent.click page.link_with(text: "More Options >>")
-    agent.click page.link_with(text: "Upload Photo")
+    agent.click page.link_with(text: "Share Photo")
 
     form.file_uploads.first.file_name = "#{first_name}.jpg"
     form.textareas.first.value = "#{BIRTHDAY_MESSAGE}"
