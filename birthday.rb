@@ -8,7 +8,7 @@ class Birthday
   BIRTHDAY_MESSAGE = 'happy birthday!'
 
   def run!
-    # random_nap
+    random_nap
     agent.get(BASE_URL)
     sign_in
     wish_happy_birthday
@@ -32,8 +32,8 @@ class Birthday
 
     next_element = page.at('h4').next
     bday_array = todays_bdays(next_element)
-
     puts "Today's bdays - #{bday_array}"
+
     bday_array - non_wish_list
   end
 
@@ -118,7 +118,7 @@ class Birthday
   end
 
   def random_nap
-    sleep rand(300) + 300
+    sleep rand(600)
   end
 
   def non_wish_list
