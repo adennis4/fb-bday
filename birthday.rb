@@ -1,7 +1,6 @@
-require "rubygems"
-require "bundler/setup"
-require "nokogiri"
 require "mechanize"
+require "psych"
+require 'yaml'
 
 class Birthday
 
@@ -63,8 +62,7 @@ class Birthday
     form.fields[4].value = "Happy Birthday #{first_name}"
     form.submit
 
-    image = select_image
-    agent.get(image).save_as "#{first_name}.jpg"
+    agent.get(select_image).save_as "#{first_name}.jpg"
   end
 
   def select_image
